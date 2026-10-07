@@ -1,0 +1,6 @@
+cloakbrowser[geoip]>=0.5
+playwright>=1.40
+rich>=13
+python-slugify>=8
+# tests
+pytest>=7

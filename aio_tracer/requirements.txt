@@ -1,0 +1,6 @@
+# Wrapper versions exercised during the v2 build; browser availability is separate.
+cloakbrowser[geoip]==0.5.12
+playwright==1.63.0
+python-slugify==9.1.2
+rich==15.0.0
+pytest==9.1.1

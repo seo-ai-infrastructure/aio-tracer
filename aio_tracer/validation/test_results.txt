@@ -1,0 +1,7 @@
+python -m pytest -q tests
+27 passed in 7.45s
+Browser: Chromium 153.0.8010.0, explicitly supplied executable
+Playwright: 1.63.0
+Fixture browser interaction assertions and storage-isolation test included.
+Mocked Google SERP used only for the re-search parser test.
+Live Google navigation failed; see live_google_check.json.

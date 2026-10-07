@@ -1,0 +1,81 @@
+{
+  "id": "77a1d753d5db6fbb1e5f70fa",
+  "requested_url": "http://127.0.0.1:36559/source-one?edition=2",
+  "canonical_key": "http://127.0.0.1:36559/source-one?edition=2",
+  "captured_at": "2026-10-06T20:34:45.053+00:00",
+  "status": "ok",
+  "passages": [
+    {
+      "text": "Acme Plumbing in Lakeland offers a $59 diagnostic visit and arrives within 30 minutes.",
+      "container_text": "Acme Plumbing in Lakeland offers a $59 diagnostic visit and arrives within 30 minutes.",
+      "path": "html > body > main > p:nth-of-type(1)",
+      "start": 0,
+      "end": 86,
+      "offset_unit": "utf16_code_units",
+      "heading": "",
+      "context": "Acme Plumbing in Lakeland",
+      "kind": "page_passage",
+      "id": "388c79ab3bd291262f306fa3"
+    },
+    {
+      "text": "Acme Plumbing serves Lakeland. It provides a 1-year warranty.",
+      "container_text": "Acme Plumbing serves Lakeland. It provides a 1-year warranty.",
+      "path": "html > body > main > p:nth-of-type(2)",
+      "start": 0,
+      "end": 61,
+      "offset_unit": "utf16_code_units",
+      "heading": "",
+      "context": "Acme Plumbing in Lakeland",
+      "kind": "page_passage",
+      "id": "94b4ef032e9a1775baa9ee03"
+    },
+    {
+      "text": "Acme Plumbing in Lakeland is available 24/7.",
+      "container_text": "Acme Plumbing in Lakeland is available 24/7.",
+      "path": "html > body > main > p:nth-of-type(3)",
+      "start": 0,
+      "end": 44,
+      "offset_unit": "utf16_code_units",
+      "heading": "",
+      "context": "Acme Plumbing in Lakeland",
+      "kind": "page_passage",
+      "id": "e5d931a676512846f19bd1b1"
+    },
+    {
+      "text": "This is a synthetic source page for software verification, not a real business offer.",
+      "container_text": "This is a synthetic source page for software verification, not a real business offer.",
+      "path": "html > body > main > p:nth-of-type(4)",
+      "start": 0,
+      "end": 85,
+      "offset_unit": "utf16_code_units",
+      "heading": "",
+      "context": "Acme Plumbing in Lakeland",
+      "kind": "page_passage",
+      "id": "eeaa83daf655674fb9ca4d70"
+    }
+  ],
+  "uses": [
+    {
+      "kind": "displayed_citation",
+      "claim_id": "04e98ce4a6185f05d8cdb29c",
+      "observed_url": "http://127.0.0.1:36559/source-one?edition=2"
+    }
+  ],
+  "resolved_url": "http://127.0.0.1:36559/source-one?edition=2",
+  "title": "Acme Plumbing · Lakeland · Synthetic source",
+  "language": "en",
+  "http_status": 200,
+  "canonical_declared": null,
+  "passage_count": 4,
+  "truncated": false,
+  "expanded_review_controls": 0,
+  "links": [],
+  "content_sha256": "d7bcb2e7d0c5785861ebdc5289fcb76a8b26f7a32172998f2d00285d73def44c",
+  "redirect_chain": [
+    "http://127.0.0.1:36559/source-one?edition=2"
+  ],
+  "screenshot": "/workspace/scratch/6af1176511f1/build/aio_tracer/examples/demo/2026-10-06T203434959Z_64004f8f/sources/77a1d753d5db6fbb1e5f70fa.png",
+  "dom_file": "/workspace/scratch/6af1176511f1/build/aio_tracer/examples/demo/2026-10-06T203434959Z_64004f8f/sources/77a1d753d5db6fbb1e5f70fa.html",
+  "dom_sha256": "b6a3f07fea0d635aac40f3d1b558d66a2404edd5e5a58848b8f3994a9634fbc6",
+  "evidence_file": "/workspace/scratch/6af1176511f1/build/aio_tracer/examples/demo/2026-10-06T203434959Z_64004f8f/sources/77a1d753d5db6fbb1e5f70fa.json"
+}

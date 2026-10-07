@@ -1,0 +1,57 @@
+{
+  "id": "acb8c4ed722d8785e1903646",
+  "requested_url": "http://127.0.0.1:36559/client",
+  "canonical_key": "http://127.0.0.1:36559/client",
+  "captured_at": "2026-10-06T20:34:44.137+00:00",
+  "status": "ok",
+  "passages": [
+    {
+      "text": "Client Plumbing serves Lakeland and provides a 1-year warranty.",
+      "container_text": "Client Plumbing serves Lakeland and provides a 1-year warranty.",
+      "path": "html > body > main > p:nth-of-type(1)",
+      "start": 0,
+      "end": 63,
+      "offset_unit": "utf16_code_units",
+      "heading": "",
+      "context": "Client Plumbing in Lakeland",
+      "kind": "page_passage",
+      "id": "05a91763cd96338eb112168f"
+    },
+    {
+      "text": "Our diagnostic visits start at $39. Call us for current response times.",
+      "container_text": "Our diagnostic visits start at $39. Call us for current response times.",
+      "path": "html > body > main > p:nth-of-type(2)",
+      "start": 0,
+      "end": 71,
+      "offset_unit": "utf16_code_units",
+      "heading": "",
+      "context": "Client Plumbing in Lakeland",
+      "kind": "page_passage",
+      "id": "e529bd41925302553447a11f"
+    }
+  ],
+  "uses": [
+    {
+      "kind": "client_page",
+      "claim_id": null,
+      "observed_url": "http://127.0.0.1:36559/client"
+    }
+  ],
+  "resolved_url": "http://127.0.0.1:36559/client",
+  "title": "Client Plumbing Lakeland",
+  "language": "",
+  "http_status": 200,
+  "canonical_declared": null,
+  "passage_count": 2,
+  "truncated": false,
+  "expanded_review_controls": 0,
+  "links": [],
+  "content_sha256": "ca399431e913c6c916ec68d1713ff50ec7b568cffa4fde14cd49cf4d1521d8a7",
+  "redirect_chain": [
+    "http://127.0.0.1:36559/client"
+  ],
+  "screenshot": "/workspace/scratch/6af1176511f1/build/aio_tracer/examples/demo/2026-10-06T203434959Z_64004f8f/sources/acb8c4ed722d8785e1903646.png",
+  "dom_file": "/workspace/scratch/6af1176511f1/build/aio_tracer/examples/demo/2026-10-06T203434959Z_64004f8f/sources/acb8c4ed722d8785e1903646.html",
+  "dom_sha256": "d127d7fa08095c0dabe1762464197c2692abbbe6dc51babe2e45407526ba2008",
+  "evidence_file": "/workspace/scratch/6af1176511f1/build/aio_tracer/examples/demo/2026-10-06T203434959Z_64004f8f/sources/acb8c4ed722d8785e1903646.json"
+}

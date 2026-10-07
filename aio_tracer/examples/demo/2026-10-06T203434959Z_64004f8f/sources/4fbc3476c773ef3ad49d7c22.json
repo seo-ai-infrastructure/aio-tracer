@@ -1,0 +1,45 @@
+{
+  "id": "4fbc3476c773ef3ad49d7c22",
+  "requested_url": "http://127.0.0.1:36559/source-two",
+  "canonical_key": "http://127.0.0.1:36559/source-two",
+  "captured_at": "2026-10-06T20:34:45.950+00:00",
+  "status": "ok",
+  "passages": [
+    {
+      "text": "Acme Plumbing in Tampa charges $89 per visit and arrives within 60 minutes.",
+      "container_text": "Acme Plumbing in Tampa charges $89 per visit and arrives within 60 minutes.",
+      "path": "html > body > main > p",
+      "start": 0,
+      "end": 75,
+      "offset_unit": "utf16_code_units",
+      "heading": "",
+      "context": "Acme Plumbing in Tampa",
+      "kind": "page_passage",
+      "id": "b9b6c55e63898d1ace13ff0c"
+    }
+  ],
+  "uses": [
+    {
+      "kind": "displayed_citation",
+      "claim_id": "04e98ce4a6185f05d8cdb29c",
+      "observed_url": "http://127.0.0.1:36559/source-two"
+    }
+  ],
+  "resolved_url": "http://127.0.0.1:36559/source-two",
+  "title": "Acme Plumbing Tampa",
+  "language": "",
+  "http_status": 200,
+  "canonical_declared": null,
+  "passage_count": 1,
+  "truncated": false,
+  "expanded_review_controls": 0,
+  "links": [],
+  "content_sha256": "52e03766771254f493ebd80fdf7edcdff3264dc18440f72af7cdbe59145bfb62",
+  "redirect_chain": [
+    "http://127.0.0.1:36559/source-two"
+  ],
+  "screenshot": "/workspace/scratch/6af1176511f1/build/aio_tracer/examples/demo/2026-10-06T203434959Z_64004f8f/sources/4fbc3476c773ef3ad49d7c22.png",
+  "dom_file": "/workspace/scratch/6af1176511f1/build/aio_tracer/examples/demo/2026-10-06T203434959Z_64004f8f/sources/4fbc3476c773ef3ad49d7c22.html",
+  "dom_sha256": "ae9707c7098a3863811ec14ac56303d2255b49d9840109a62f778f19db5b81f9",
+  "evidence_file": "/workspace/scratch/6af1176511f1/build/aio_tracer/examples/demo/2026-10-06T203434959Z_64004f8f/sources/4fbc3476c773ef3ad49d7c22.json"
+}

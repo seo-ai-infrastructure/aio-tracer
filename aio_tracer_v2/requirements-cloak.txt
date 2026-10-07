@@ -1,0 +1,2 @@
+-r requirements.txt
+cloakbrowser[geoip]>=0.5

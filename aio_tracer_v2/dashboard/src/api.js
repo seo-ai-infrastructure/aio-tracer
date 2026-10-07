@@ -1,0 +1,5 @@
+export const base=(import.meta.env.VITE_API_BASE_URL||'').replace(/\/$/,'');
+export async function api(path,body){const token=sessionStorage.getItem('aio-token')||'';const res=await fetch(base+path,{method:body===undefined?'GET':'POST',headers:{'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{})},...(body===undefined?{}:{body:JSON.stringify(body)})});if(!res.ok){let e;try{e=await res.json();}catch{e={detail:res.statusText}}throw Error(typeof e.detail==='string'?e.detail:JSON.stringify(e.detail));}return res.json();}
+export async function download(id,format){const res=await fetch(`${base}/api/captures/${id}/export?format=${format}`,{headers:{Authorization:'Bearer '+(sessionStorage.getItem('aio-token')||'')}});if(!res.ok)throw Error('Export failed');const url=URL.createObjectURL(await res.blob());const a=document.createElement('a');a.href=url;a.download=`capture-${id}.${format}`;a.click();URL.revokeObjectURL(url);}
+export const pct=v=>v==null?'—':Math.round(v*100)+'%';
+export const date=v=>v?new Date(v).toLocaleString(): '—';

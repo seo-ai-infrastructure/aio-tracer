@@ -1,0 +1,29 @@
+{
+  "query": "emergency plumber near me",
+  "requested_city": "Lakeland FL",
+  "capture": {
+    "status": "error",
+    "method": "browser_aio_evidence_v2",
+    "searchURL": "https://www.google.com/search?q=emergency+plumber+near+me&hl=en&gl=us",
+    "errors": [
+      "Page.goto: net::ERR_FAILED at https://www.google.com/search?q=emergency+plumber+near+me&hl=en&gl=us\nCall log:\n  - navigating to \"https://www.google.com/search?q=emergency+plumber+near+me&hl=en&gl=us\", waiting until \"domcontentloaded\"\n"
+    ],
+    "session": {
+      "session_id": "4d68b1420c084106b5b564e9d3f2e7e9",
+      "mode": "fresh",
+      "profile_id": "live-check-lakeland-fl-d81f811aa6",
+      "started_at": "2026-10-06T20:25:45.032+00:00",
+      "engine": "chromium",
+      "device": "desktop",
+      "independence": "not_assumed",
+      "login_state": "not_inferred",
+      "fresh_storage": true,
+      "browser_fingerprint_seed": 44110,
+      "device_measurement": "desktop_browser",
+      "geoip_note": "Stock Chromium does not auto-match locale/timezone to proxy IP.",
+      "browser_version": "153.0.8010.0"
+    },
+    "interaction_budget": 2
+  },
+  "conclusion": "No live Google AIO was captured or validated in this environment."
+}

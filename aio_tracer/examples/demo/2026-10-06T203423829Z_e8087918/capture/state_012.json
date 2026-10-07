@@ -1,0 +1,689 @@
+{
+  "capturedAtUTC": "2026-10-06T20:34:31.686Z",
+  "pageURL": "http://127.0.0.1:36559/aio?edition=1",
+  "title": "Synthetic AIO browser fixture",
+  "aioPresent": true,
+  "headingObserved": true,
+  "root": {
+    "path": "html > body > section",
+    "id": null,
+    "visibleText": "AI Overview\n\nAcme Plumbing in Lakeland offers a $49 diagnostic visit and arrives within 30 minutes.Sources\n\nAcme Plumbing serves Lakeland. It provides a 1-year warranty.Sources\n\nShow more\n\nAcme Plumbing in Lakeland is available 24/7.\n\nAcme Plumbing\n4.9\n(100)\nPlumber\nOpens soon\nAddress: 10 Main Street, Lakeland, FL\nPhone: 202-555-0100\nHours: Opens 9 AM\nAcme Plumbing\n4.9\n(100)\nPlumber\nOpens soon\nAddress: 20 Other Street, Tampa, FL\nPhone: 202-555-0100\nHours: Opens 9 AM",
+    "outerHTML": "<section data-aio-root=\"\"><h2>AI Overview</h2>\n    <p data-aio-claim=\"\" id=\"claim-one\"><button data-entity-id=\"/g/acme_main\" id=\"entity-button\" aria-controls=\"entity-panel\" onclick=\"document.getElementById('entity-panel').hidden=false\">Acme Plumbing</button> in Lakeland offers a <a id=\"price-link\" href=\"http://127.0.0.1:36559/source-one?edition=1\">$49 diagnostic visit</a> and arrives within 30 minutes.<button data-source-control=\"\" id=\"citation-button\" aria-controls=\"source-panel\" onclick=\"document.getElementById('source-panel').hidden=false\">Sources</button></p>\n    <p data-aio-claim=\"\" data-entity-id=\"/g/acme_main\" id=\"claim-group\">Acme Plumbing serves Lakeland. It provides a 1-year warranty.<button data-source-control=\"\" id=\"group-button\" aria-controls=\"group-panel\" onclick=\"document.getElementById('group-panel').hidden=false\">Sources</button></p>\n    <button data-aio-expand=\"\" id=\"expand\" onclick=\"document.getElementById('more').hidden=false;this.setAttribute('aria-expanded','true')\" aria-expanded=\"true\">Show more</button>\n    <div id=\"more\"><p data-aio-claim=\"\" data-entity-id=\"/g/acme_main\">Acme Plumbing in Lakeland is available 24/7.</p></div>\n    <button data-image-control=\"\" id=\"image\" aria-controls=\"image-panel\" onclick=\"document.getElementById('image-panel').hidden=false\"><img alt=\"Synthetic business image\" src=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='60'%3E%3Crect width='80' height='60' fill='%2388bbee'/%3E%3C/svg%3E\"></button>\n    <div role=\"list\"><div role=\"listitem\" data-business-card=\"\" data-business-name=\"Acme Plumbing\" data-kgid=\"/g/acme_main\">\n      <div>Acme Plumbing</div><div aria-label=\"Rated 4.9 out of 5, 100 reviews\">4.9</div><div>(100)</div><div>Plumber</div><div>Opens soon</div>\n      <div>Address: 10 Main Street, Lakeland, FL</div><div>Phone: 202-555-0100</div><div>Hours: Opens 9 AM</div><!--TgQPHd|||[[[\"Acme Plumbing\", \"/g/acme_main\", null, null, \"LOCAL_PLACE\"]]]--><!--TgQPHd|||[[[\"/g/acme_main\", \"0x1:0x1\", [\"/g/acme_main\", -81.95, 28.03, \"0x1:0x1\"], null, null, \"emergency plumber near me\"]]]--><!--TgQPHd|||[5, [[\"\", \"http://127.0.0.1:36559/source-one?edition=1\"]]]--></div><div role=\"listitem\" data-business-card=\"\" data-business-name=\"Acme Plumbing\" data-kgid=\"/g/acme_other\">\n      <div>Acme Plumbing</div><div aria-label=\"Rated 4.9 out of 5, 100 reviews\">4.9</div><div>(100)</div><div>Plumber</div><div>Opens soon</div>\n      <div>Address: 20 Other Street, Tampa, FL</div><div>Phone: 202-555-0100</div><div>Hours: Opens 9 AM</div><!--TgQPHd|||[[[\"Acme Plumbing\", \"/g/acme_other\", null, null, \"LOCAL_PLACE\"]]]--><!--TgQPHd|||[[[\"/g/acme_other\", \"0x2:0x2\", [\"/g/acme_other\", -81.95, 28.03, \"0x2:0x2\"], null, null, \"emergency plumber near me\"]]]--><!--TgQPHd|||[5, [[\"\", \"http://127.0.0.1:36559/source-two\"]]]--></div></div>\n    </section>",
+    "controls": [
+      {
+        "path": "button#entity-button",
+        "kind": "entity_link",
+        "label": "Acme Plumbing",
+        "text": "Acme Plumbing",
+        "panelPath": null,
+        "rawHref": null,
+        "resolvedHref": null,
+        "ariaControls": "entity-panel",
+        "ariaExpanded": null,
+        "entity": {
+          "cardPath": null,
+          "kgId": "/g/acme_main",
+          "featureId": null,
+          "nameHint": "Acme Plumbing"
+        },
+        "payloadURLs": [],
+        "rect": {
+          "x": 70,
+          "y": -512.90625,
+          "width": 126,
+          "height": 39
+        },
+        "classificationBasis": "DOM label, attributes, href and serialized comment values"
+      },
+      {
+        "path": "a#price-link",
+        "kind": "document_link",
+        "label": "$49 diagnostic visit",
+        "text": "$49 diagnostic visit",
+        "panelPath": null,
+        "rawHref": "http://127.0.0.1:36559/source-one?edition=1",
+        "resolvedHref": "http://127.0.0.1:36559/source-one?edition=1",
+        "ariaControls": null,
+        "ariaExpanded": null,
+        "entity": {
+          "cardPath": null,
+          "kgId": null,
+          "featureId": null,
+          "nameHint": null
+        },
+        "payloadURLs": [],
+        "rect": {
+          "x": 381.65625,
+          "y": -504.90625,
+          "width": 165.78125,
+          "height": 20
+        },
+        "classificationBasis": "DOM label, attributes, href and serialized comment values"
+      },
+      {
+        "path": "button#citation-button",
+        "kind": "citation_control",
+        "label": "Sources",
+        "text": "Sources",
+        "panelPath": null,
+        "rawHref": null,
+        "resolvedHref": null,
+        "ariaControls": "source-panel",
+        "ariaExpanded": null,
+        "entity": {
+          "cardPath": null,
+          "kgId": null,
+          "featureId": null,
+          "nameHint": null
+        },
+        "payloadURLs": [],
+        "rect": {
+          "x": 820.0625,
+          "y": -512.90625,
+          "width": 75,
+          "height": 39
+        },
+        "classificationBasis": "DOM label, attributes, href and serialized comment values"
+      },
+      {
+        "path": "button#group-button",
+        "kind": "citation_control",
+        "label": "Sources",
+        "text": "Sources",
+        "panelPath": null,
+        "rawHref": null,
+        "resolvedHref": null,
+        "ariaControls": "group-panel",
+        "ariaExpanded": null,
+        "entity": {
+          "cardPath": null,
+          "kgId": "/g/acme_main",
+          "featureId": null,
+          "nameHint": null
+        },
+        "payloadURLs": [],
+        "rect": {
+          "x": 605.96875,
+          "y": -440.90625,
+          "width": 75,
+          "height": 39
+        },
+        "classificationBasis": "DOM label, attributes, href and serialized comment values"
+      },
+      {
+        "path": "button#expand",
+        "kind": "expander",
+        "label": "Show more",
+        "text": "Show more",
+        "panelPath": null,
+        "rawHref": null,
+        "resolvedHref": null,
+        "ariaControls": null,
+        "ariaExpanded": "true",
+        "entity": {
+          "cardPath": null,
+          "kgId": null,
+          "featureId": null,
+          "nameHint": null
+        },
+        "payloadURLs": [],
+        "rect": {
+          "x": 70,
+          "y": -368.90625,
+          "width": 97,
+          "height": 39
+        },
+        "classificationBasis": "DOM label, attributes, href and serialized comment values"
+      },
+      {
+        "path": "button#image",
+        "kind": "image_link",
+        "label": "",
+        "text": "",
+        "panelPath": null,
+        "rawHref": null,
+        "resolvedHref": null,
+        "ariaControls": "image-panel",
+        "ariaExpanded": null,
+        "entity": {
+          "cardPath": null,
+          "kgId": null,
+          "featureId": null,
+          "nameHint": null
+        },
+        "payloadURLs": [],
+        "rect": {
+          "x": 70,
+          "y": -252.71875,
+          "width": 104,
+          "height": 87
+        },
+        "classificationBasis": "DOM label, attributes, href and serialized comment values"
+      }
+    ],
+    "claims": [
+      {
+        "text": "Acme Plumbing in Lakeland offers a $49 diagnostic visit and arrives within 30 minutes.",
+        "start": 0,
+        "end": 86,
+        "offsetUnit": "utf16_code_units",
+        "containerPath": "p#claim-one",
+        "containerText": "Acme Plumbing in Lakeland offers a $49 diagnostic visit and arrives within 30 minutes.",
+        "entity": {
+          "cardPath": null,
+          "kgId": null,
+          "featureId": null,
+          "nameHint": null
+        },
+        "relationships": [
+          {
+            "path": "button#entity-button",
+            "kind": "entity_link",
+            "label": "Acme Plumbing",
+            "text": "Acme Plumbing",
+            "panelPath": null,
+            "rawHref": null,
+            "resolvedHref": null,
+            "ariaControls": "entity-panel",
+            "ariaExpanded": null,
+            "entity": {
+              "cardPath": null,
+              "kgId": "/g/acme_main",
+              "featureId": null,
+              "nameHint": "Acme Plumbing"
+            },
+            "payloadURLs": [],
+            "rect": {
+              "x": 70,
+              "y": -512.90625,
+              "width": 126,
+              "height": 39
+            },
+            "classificationBasis": "DOM label, attributes, href and serialized comment values",
+            "scope": "direct_span",
+            "anchorStart": 0,
+            "anchorEnd": 13,
+            "anchorText": "Acme Plumbing"
+          },
+          {
+            "path": "a#price-link",
+            "kind": "document_link",
+            "label": "$49 diagnostic visit",
+            "text": "$49 diagnostic visit",
+            "panelPath": null,
+            "rawHref": "http://127.0.0.1:36559/source-one?edition=1",
+            "resolvedHref": "http://127.0.0.1:36559/source-one?edition=1",
+            "ariaControls": null,
+            "ariaExpanded": null,
+            "entity": {
+              "cardPath": null,
+              "kgId": null,
+              "featureId": null,
+              "nameHint": null
+            },
+            "payloadURLs": [],
+            "rect": {
+              "x": 381.65625,
+              "y": -504.90625,
+              "width": 165.78125,
+              "height": 20
+            },
+            "classificationBasis": "DOM label, attributes, href and serialized comment values",
+            "scope": "direct_span",
+            "anchorStart": 35,
+            "anchorEnd": 55,
+            "anchorText": "$49 diagnostic visit"
+          },
+          {
+            "path": "button#citation-button",
+            "kind": "citation_control",
+            "label": "Sources",
+            "text": "Sources",
+            "panelPath": null,
+            "rawHref": null,
+            "resolvedHref": null,
+            "ariaControls": "source-panel",
+            "ariaExpanded": null,
+            "entity": {
+              "cardPath": null,
+              "kgId": null,
+              "featureId": null,
+              "nameHint": null
+            },
+            "payloadURLs": [],
+            "rect": {
+              "x": 820.0625,
+              "y": -512.90625,
+              "width": 75,
+              "height": 39
+            },
+            "classificationBasis": "DOM label, attributes, href and serialized comment values",
+            "scope": "sentence",
+            "anchorStart": null,
+            "anchorEnd": null,
+            "anchorText": null
+          }
+        ]
+      },
+      {
+        "text": "Acme Plumbing serves Lakeland.",
+        "start": 0,
+        "end": 30,
+        "offsetUnit": "utf16_code_units",
+        "containerPath": "p#claim-group",
+        "containerText": "Acme Plumbing serves Lakeland. It provides a 1-year warranty.",
+        "entity": {
+          "cardPath": null,
+          "kgId": "/g/acme_main",
+          "featureId": null,
+          "nameHint": null
+        },
+        "relationships": [
+          {
+            "path": "button#group-button",
+            "kind": "citation_control",
+            "label": "Sources",
+            "text": "Sources",
+            "panelPath": null,
+            "rawHref": null,
+            "resolvedHref": null,
+            "ariaControls": "group-panel",
+            "ariaExpanded": null,
+            "entity": {
+              "cardPath": null,
+              "kgId": "/g/acme_main",
+              "featureId": null,
+              "nameHint": null
+            },
+            "payloadURLs": [],
+            "rect": {
+              "x": 605.96875,
+              "y": -440.90625,
+              "width": 75,
+              "height": 39
+            },
+            "classificationBasis": "DOM label, attributes, href and serialized comment values",
+            "scope": "paragraph_group",
+            "anchorStart": null,
+            "anchorEnd": null,
+            "anchorText": null
+          }
+        ]
+      },
+      {
+        "text": "It provides a 1-year warranty.",
+        "start": 31,
+        "end": 61,
+        "offsetUnit": "utf16_code_units",
+        "containerPath": "p#claim-group",
+        "containerText": "Acme Plumbing serves Lakeland. It provides a 1-year warranty.",
+        "entity": {
+          "cardPath": null,
+          "kgId": "/g/acme_main",
+          "featureId": null,
+          "nameHint": null
+        },
+        "relationships": [
+          {
+            "path": "button#group-button",
+            "kind": "citation_control",
+            "label": "Sources",
+            "text": "Sources",
+            "panelPath": null,
+            "rawHref": null,
+            "resolvedHref": null,
+            "ariaControls": "group-panel",
+            "ariaExpanded": null,
+            "entity": {
+              "cardPath": null,
+              "kgId": "/g/acme_main",
+              "featureId": null,
+              "nameHint": null
+            },
+            "payloadURLs": [],
+            "rect": {
+              "x": 605.96875,
+              "y": -440.90625,
+              "width": 75,
+              "height": 39
+            },
+            "classificationBasis": "DOM label, attributes, href and serialized comment values",
+            "scope": "paragraph_group",
+            "anchorStart": null,
+            "anchorEnd": null,
+            "anchorText": null
+          }
+        ]
+      },
+      {
+        "text": "Acme Plumbing in Lakeland is available 24/7.",
+        "start": 0,
+        "end": 44,
+        "offsetUnit": "utf16_code_units",
+        "containerPath": "div#more > p",
+        "containerText": "Acme Plumbing in Lakeland is available 24/7.",
+        "entity": {
+          "cardPath": null,
+          "kgId": "/g/acme_main",
+          "featureId": null,
+          "nameHint": null
+        },
+        "relationships": []
+      }
+    ]
+  },
+  "panels": [
+    {
+      "path": "aside#source-panel",
+      "id": "source-panel",
+      "visibleText": "Sources\nAcme pricing and arrival termsMore sources\nAcme alternative location",
+      "outerHTML": "<aside data-source-panel=\"\" id=\"source-panel\"><h2>Sources</h2><a href=\"http://127.0.0.1:36559/source-one?edition=1\">Acme pricing and arrival terms</a><button id=\"more-sources\" data-aio-expand=\"\" aria-expanded=\"true\" onclick=\"document.getElementById('extra-sources').hidden=false;this.setAttribute('aria-expanded','true')\">More sources</button><div id=\"extra-sources\"><a href=\"http://127.0.0.1:36559/source-two\">Acme alternative location</a></div></aside>",
+      "controls": [
+        {
+          "path": "aside#source-panel > a",
+          "kind": "document_link",
+          "label": "Acme pricing and arrival terms",
+          "text": "Acme pricing and arrival terms",
+          "panelPath": "aside#source-panel",
+          "rawHref": "http://127.0.0.1:36559/source-one?edition=1",
+          "resolvedHref": "http://127.0.0.1:36559/source-one?edition=1",
+          "ariaControls": null,
+          "ariaExpanded": null,
+          "entity": {
+            "cardPath": null,
+            "kgId": null,
+            "featureId": null,
+            "nameHint": null
+          },
+          "payloadURLs": [],
+          "rect": {
+            "x": 62,
+            "y": 438.1875,
+            "width": 262.6875,
+            "height": 20
+          },
+          "classificationBasis": "DOM label, attributes, href and serialized comment values"
+        },
+        {
+          "path": "button#more-sources",
+          "kind": "citation_control",
+          "label": "More sources",
+          "text": "More sources",
+          "panelPath": "aside#source-panel",
+          "rawHref": null,
+          "resolvedHref": null,
+          "ariaControls": null,
+          "ariaExpanded": "true",
+          "entity": {
+            "cardPath": null,
+            "kgId": null,
+            "featureId": null,
+            "nameHint": null
+          },
+          "payloadURLs": [],
+          "rect": {
+            "x": 332.6875,
+            "y": 430.1875,
+            "width": 110,
+            "height": 39
+          },
+          "classificationBasis": "DOM label, attributes, href and serialized comment values"
+        },
+        {
+          "path": "div#extra-sources > a",
+          "kind": "document_link",
+          "label": "Acme alternative location",
+          "text": "Acme alternative location",
+          "panelPath": "aside#source-panel",
+          "rawHref": "http://127.0.0.1:36559/source-two",
+          "resolvedHref": "http://127.0.0.1:36559/source-two",
+          "ariaControls": null,
+          "ariaExpanded": null,
+          "entity": {
+            "cardPath": null,
+            "kgId": null,
+            "featureId": null,
+            "nameHint": null
+          },
+          "payloadURLs": [],
+          "rect": {
+            "x": 62,
+            "y": 480.1875,
+            "width": 218.015625,
+            "height": 20
+          },
+          "classificationBasis": "DOM label, attributes, href and serialized comment values"
+        }
+      ],
+      "claims": []
+    },
+    {
+      "path": "aside#group-panel",
+      "id": "group-panel",
+      "visibleText": "Sources for this paragraph\nWarranty and coverage",
+      "outerHTML": "<aside data-source-panel=\"\" id=\"group-panel\"><h2>Sources for this paragraph</h2><a href=\"http://127.0.0.1:36559/source-one?edition=1\">Warranty and coverage</a></aside>",
+      "controls": [
+        {
+          "path": "aside#group-panel > a",
+          "kind": "document_link",
+          "label": "Warranty and coverage",
+          "text": "Warranty and coverage",
+          "panelPath": "aside#group-panel",
+          "rawHref": "http://127.0.0.1:36559/source-one?edition=1",
+          "resolvedHref": "http://127.0.0.1:36559/source-one?edition=1",
+          "ariaControls": null,
+          "ariaExpanded": null,
+          "entity": {
+            "cardPath": null,
+            "kgId": null,
+            "featureId": null,
+            "nameHint": null
+          },
+          "payloadURLs": [],
+          "rect": {
+            "x": 62,
+            "y": 652.28125,
+            "width": 199.453125,
+            "height": 20
+          },
+          "classificationBasis": "DOM label, attributes, href and serialized comment values"
+        }
+      ],
+      "claims": []
+    },
+    {
+      "path": "aside#entity-panel",
+      "id": "entity-panel",
+      "visibleText": "Acme Plumbing · Lakeland\nWebsiteCall",
+      "outerHTML": "<aside data-entity-panel=\"\" id=\"entity-panel\"><h2>Acme Plumbing · Lakeland</h2><a data-website-action=\"\" href=\"http://127.0.0.1:36559/source-one?edition=1\">Website</a><a href=\"tel:+12025550100\">Call</a></aside>",
+      "controls": [
+        {
+          "path": "aside#entity-panel > a:nth-of-type(1)",
+          "kind": "website_action",
+          "label": "Website",
+          "text": "Website",
+          "panelPath": "aside#entity-panel",
+          "rawHref": "http://127.0.0.1:36559/source-one?edition=1",
+          "resolvedHref": "http://127.0.0.1:36559/source-one?edition=1",
+          "ariaControls": null,
+          "ariaExpanded": null,
+          "entity": {
+            "cardPath": null,
+            "kgId": null,
+            "featureId": null,
+            "nameHint": null
+          },
+          "payloadURLs": [],
+          "rect": {
+            "x": 62,
+            "y": 824.375,
+            "width": 67.78125,
+            "height": 20
+          },
+          "classificationBasis": "DOM label, attributes, href and serialized comment values"
+        },
+        {
+          "path": "aside#entity-panel > a:nth-of-type(2)",
+          "kind": "entity_action",
+          "label": "Call",
+          "text": "Call",
+          "panelPath": "aside#entity-panel",
+          "rawHref": "tel:+12025550100",
+          "resolvedHref": "tel:+12025550100",
+          "ariaControls": null,
+          "ariaExpanded": null,
+          "entity": {
+            "cardPath": null,
+            "kgId": null,
+            "featureId": null,
+            "nameHint": null
+          },
+          "payloadURLs": [],
+          "rect": {
+            "x": 129.78125,
+            "y": 824.375,
+            "width": 31.734375,
+            "height": 20
+          },
+          "classificationBasis": "DOM label, attributes, href and serialized comment values"
+        }
+      ],
+      "claims": []
+    },
+    {
+      "path": "aside#image-panel",
+      "id": "image-panel",
+      "visibleText": "Image details\nImage source page",
+      "outerHTML": "<aside data-image-panel=\"\" id=\"image-panel\"><h2>Image details</h2><a href=\"http://127.0.0.1:36559/image-source\">Image source page</a></aside>",
+      "controls": [
+        {
+          "path": "aside#image-panel > a",
+          "kind": "citation_control",
+          "label": "Image source page",
+          "text": "Image source page",
+          "panelPath": "aside#image-panel",
+          "rawHref": "http://127.0.0.1:36559/image-source",
+          "resolvedHref": "http://127.0.0.1:36559/image-source",
+          "ariaControls": null,
+          "ariaExpanded": null,
+          "entity": {
+            "cardPath": null,
+            "kgId": null,
+            "featureId": null,
+            "nameHint": null
+          },
+          "payloadURLs": [],
+          "rect": {
+            "x": 62,
+            "y": 996.46875,
+            "width": 162.96875,
+            "height": 20
+          },
+          "classificationBasis": "DOM label, attributes, href and serialized comment values"
+        }
+      ],
+      "claims": []
+    }
+  ],
+  "cards": [
+    {
+      "path": "html > body > section > div:nth-of-type(2) > div:nth-of-type(1)",
+      "id": null,
+      "visibleText": "Acme Plumbing\n4.9\n(100)\nPlumber\nOpens soon\nAddress: 10 Main Street, Lakeland, FL\nPhone: 202-555-0100\nHours: Opens 9 AM",
+      "outerHTML": "<div role=\"listitem\" data-business-card=\"\" data-business-name=\"Acme Plumbing\" data-kgid=\"/g/acme_main\">\n      <div>Acme Plumbing</div><div aria-label=\"Rated 4.9 out of 5, 100 reviews\">4.9</div><div>(100)</div><div>Plumber</div><div>Opens soon</div>\n      <div>Address: 10 Main Street, Lakeland, FL</div><div>Phone: 202-555-0100</div><div>Hours: Opens 9 AM</div><!--TgQPHd|||[[[\"Acme Plumbing\", \"/g/acme_main\", null, null, \"LOCAL_PLACE\"]]]--><!--TgQPHd|||[[[\"/g/acme_main\", \"0x1:0x1\", [\"/g/acme_main\", -81.95, 28.03, \"0x1:0x1\"], null, null, \"emergency plumber near me\"]]]--><!--TgQPHd|||[5, [[\"\", \"http://127.0.0.1:36559/source-one?edition=1\"]]]--></div>",
+      "controls": [],
+      "claims": [
+        {
+          "text": "Address: 10 Main Street, Lakeland, FL",
+          "start": 0,
+          "end": 37,
+          "offsetUnit": "utf16_code_units",
+          "containerPath": "html > body > section > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6)",
+          "containerText": "Address: 10 Main Street, Lakeland, FL",
+          "entity": {
+            "cardPath": "html > body > section > div:nth-of-type(2) > div:nth-of-type(1)",
+            "kgId": "/g/acme_main",
+            "featureId": "0x1:0x1",
+            "nameHint": "Acme Plumbing"
+          },
+          "relationships": []
+        }
+      ],
+      "entity": {
+        "cardPath": "html > body > section > div:nth-of-type(2) > div:nth-of-type(1)",
+        "kgId": "/g/acme_main",
+        "featureId": "0x1:0x1",
+        "nameHint": "Acme Plumbing"
+      }
+    },
+    {
+      "path": "html > body > section > div:nth-of-type(2) > div:nth-of-type(2)",
+      "id": null,
+      "visibleText": "Acme Plumbing\n4.9\n(100)\nPlumber\nOpens soon\nAddress: 20 Other Street, Tampa, FL\nPhone: 202-555-0100\nHours: Opens 9 AM",
+      "outerHTML": "<div role=\"listitem\" data-business-card=\"\" data-business-name=\"Acme Plumbing\" data-kgid=\"/g/acme_other\">\n      <div>Acme Plumbing</div><div aria-label=\"Rated 4.9 out of 5, 100 reviews\">4.9</div><div>(100)</div><div>Plumber</div><div>Opens soon</div>\n      <div>Address: 20 Other Street, Tampa, FL</div><div>Phone: 202-555-0100</div><div>Hours: Opens 9 AM</div><!--TgQPHd|||[[[\"Acme Plumbing\", \"/g/acme_other\", null, null, \"LOCAL_PLACE\"]]]--><!--TgQPHd|||[[[\"/g/acme_other\", \"0x2:0x2\", [\"/g/acme_other\", -81.95, 28.03, \"0x2:0x2\"], null, null, \"emergency plumber near me\"]]]--><!--TgQPHd|||[5, [[\"\", \"http://127.0.0.1:36559/source-two\"]]]--></div>",
+      "controls": [],
+      "claims": [],
+      "entity": {
+        "cardPath": "html > body > section > div:nth-of-type(2) > div:nth-of-type(2)",
+        "kgId": "/g/acme_other",
+        "featureId": "0x2:0x2",
+        "nameHint": "Acme Plumbing"
+      }
+    }
+  ],
+  "images": [
+    {
+      "path": "button#image > img",
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='60'%3E%3Crect width='80' height='60' fill='%2388bbee'/%3E%3C/svg%3E",
+      "currentSrc": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='60'%3E%3Crect width='80' height='60' fill='%2388bbee'/%3E%3C/svg%3E",
+      "alt": "Synthetic business image",
+      "link": null,
+      "entity": {
+        "cardPath": null,
+        "kgId": null,
+        "featureId": null,
+        "nameHint": null
+      }
+    }
+  ],
+  "context": {
+    "displayed": [
+      {
+        "text": "Location display fixture: Lakeland, FL — based on test configuration.",
+        "path": "html > body > footer",
+        "selector": "[data-google-location]"
+      }
+    ],
+    "observedLocationStatus": "location_ui_captured",
+    "locationInterpretation": "Raw displayed text; city label and proxy settings do not establish Google location.",
+    "query": null,
+    "queryURL": "http://127.0.0.1:36559/aio?edition=1",
+    "language": "en-US@posix",
+    "languages": [
+      "en-US@posix"
+    ],
+    "timezone": "Asia/Tokyo",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.0 Safari/537.36",
+    "viewport": {
+      "width": 1365,
+      "height": 900,
+      "dpr": 1
+    },
+    "documentLanguage": "en",
+    "loginState": "not_inferred"
+  },
+  "blocked": false,
+  "coverage": {
+    "rootMethod": "heading_or_explicit_marker",
+    "outerHTMLLimitations": [
+      "No closed shadow roots or cross-origin iframe contents.",
+      "Lazy content requires recorded interaction."
+    ]
+  },
+  "id": "state_012",
+  "label": "after-interaction",
+  "screenshot": "/workspace/scratch/6af1176511f1/build/aio_tracer/examples/demo/2026-10-06T203423829Z_e8087918/capture/state_012.png",
+  "dom_file": "/workspace/scratch/6af1176511f1/build/aio_tracer/examples/demo/2026-10-06T203423829Z_e8087918/capture/state_012.html",
+  "dom_sha256": "919836231d4b93580fbad217ab8314500e8416cfa16b443efa9bca9ebd981fa8",
+  "snapshot_file": "/workspace/scratch/6af1176511f1/build/aio_tracer/examples/demo/2026-10-06T203423829Z_e8087918/capture/state_012.json"
+}
