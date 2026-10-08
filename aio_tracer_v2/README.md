@@ -1,4 +1,4 @@
-# AIO Tracer 2.0
+# AIO Tracer 2.1
 
 A local-business AI Overview evidence tracker: capture Google's displayed answer, inspect citation relationships, retrieve cited pages, compare factual coverage, and measure changes over time.
 
@@ -18,7 +18,7 @@ Windows PowerShell:
 .\start.ps1
 ```
 
-Open **http://127.0.0.1:8080**. Choose **Load historical sample** to inspect the original four-business Lakeland trace. It is labeled partial and excluded from verified visibility rates. No invented citation relationships are added to that sample.
+Open **http://127.0.0.1:8001**. Choose **Load historical sample** to inspect the original four-business Lakeland trace. It is labeled partial and excluded from verified visibility rates. No invented citation relationships are added to that sample.
 
 Manual start:
 
@@ -140,3 +140,11 @@ npm run build
 Set `AIO_TEST_BROWSER` to an existing Chromium executable when the default Playwright binary is unavailable. Tests cover capture scoping and drawer states in browser fixtures, legacy extraction, denominators, phone consistency, source retrieval parsing, evidence chains, comparisons, persistent jobs, schedules, authentication and experiments.
 
 See **VERIFICATION.md** for what was actually verified and the live-environment limits.
+
+## Observation harness
+
+New captures include bounded CDP network and rendering observations. Open **Observations** in the dashboard, or click **Load stream demo** for a synthetic example excluded from SEO metrics. See `../OBSERVATION_HARNESS.md` for interpretation, manual HAR controls, limits and CLI flags.
+
+## Visible CloakBrowser Manager integration
+
+The capture form now defaults to a visible Manager profile. See [the complete setup guide](docs/CLOAK_MANAGER.md) for native windows, client/area/device bindings, worker-only proxies, strict exit-city checks and Sites connectivity. Existing explicit Playwright/direct-Cloak jobs remain supported. No live Manager or proxy has been configured in this release.

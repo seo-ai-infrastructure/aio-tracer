@@ -40,7 +40,7 @@ The queue uses database claims to prevent two workers taking the same job. A bro
 
 If needed, set a city proxy on the worker as `AIO_PROXY_LAKELAND`. Enter `LAKELAND` as the named proxy profile in the capture form. Credentials are never sent by the frontend. Desktop/mobile profiles are separate. Supply browser coordinates if useful, but inspect Google's displayed location rather than assuming coordinates or proxy label control it exactly.
 
-CloakBrowser is optional. Install `requirements-cloak.txt` and its compatible browser binary if selecting it. Default Docker installs Playwright Chromium. Optional Cloak launch behavior was not verified in this handoff.
+The current capture form defaults to visible CloakBrowser Manager profiles; configure its worker connection or explicitly select Playwright. See `docs/CLOAK_MANAGER.md`. Direct CloakBrowser is optional. Install `requirements-cloak.txt` and its compatible browser binary if selecting it. Default Docker installs Playwright Chromium. Optional Cloak launch behavior was not verified in this handoff.
 
 ## Vercel frontend
 

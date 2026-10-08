@@ -193,6 +193,15 @@ class ProfileManager:
         logger.debug("Loaded profile %s", profile_id)
         return profile
 
+    def configure_connection(self, profile, proxy_url=None, locale=None, timezone_name=None, geoip=True):
+        """Explicit desired state, including clearing an old proxy/timezone override."""
+        desired={'proxy_url':proxy_url,'locale':locale,'timezone':timezone_name,'geoip':geoip}
+        if any(getattr(profile,k)!=v for k,v in desired.items()):
+            for k,v in desired.items():setattr(profile,k,v)
+            profile.updated_at=datetime.now(timezone.utc).isoformat()
+            self._write(profile)
+        return profile
+
     def list_profiles(self) -> list[BrowserProfile]:
         profiles = []
         for path in sorted(self.profiles_dir.glob("*.json")):

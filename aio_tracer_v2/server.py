@@ -22,7 +22,7 @@ async def lifespan(app):
     yield
     stop.set()
     if thread:thread.join(timeout=2)
-app=FastAPI(title='AIO Tracer 2',lifespan=lifespan)
+app=FastAPI(title='AIO Tracer 2.1',lifespan=lifespan)
 origins=[x.strip() for x in os.getenv('AIO_ALLOWED_ORIGINS','http://localhost:5173,http://127.0.0.1:5173').split(',') if x.strip()]
 app.add_middleware(CORSMiddleware,allow_origins=origins,allow_methods=['GET','POST'],allow_headers=['Authorization','Content-Type'])
 
@@ -44,13 +44,24 @@ class CaptureInput(BaseModel):
     device:str='desktop'
     latitude:float|None=Field(default=None,ge=-90,le=90)
     longitude:float|None=Field(default=None,ge=-180,le=180)
-    timezone:str='America/New_York'
+    timezone:str|None=Field(default=None,max_length=80)
+    target_area:str|None=Field(default=None,max_length=120)
     proxy_profile:str|None=Field(default=None,pattern=r'^[A-Za-z0-9_]{1,40}$')
-    browser:str='playwright'
+    browser:str='cloak_manager'
+    headed:bool=True
+    manager_keep_open:bool=True
+    proxy_city_policy:str='record'
+    observe_network:bool=True
+    disable_cache:bool=False
+    query_archetype:str='local_entity'
     @model_validator(mode='after')
     def validate_fields(self):
         if self.device not in ('desktop','mobile'):raise ValueError('Invalid device')
-        if self.browser not in ('playwright','cloak'):raise ValueError('Invalid browser')
+        if self.browser not in ('playwright','cloak','cloak_manager'):raise ValueError('Invalid browser')
+        if self.browser=='cloak_manager' and not self.headed:raise ValueError('Manager requires a visible browser')
+        if self.proxy_city_policy not in ('record','require_match'):raise ValueError('Invalid proxy city policy')
+        if self.proxy_city_policy=='require_match' and (self.browser!='cloak_manager' or not self.proxy_profile):raise ValueError('Strict city checking requires Manager and a named proxy')
+        if self.query_archetype not in ('informational','comparative','local_entity','ymyl','shopping'):raise ValueError('Invalid query archetype')
         if (self.latitude is None)!=(self.longitude is None):raise ValueError('Supply both coordinates')
         return self
 class ScheduleInput(CaptureInput):
@@ -96,7 +107,7 @@ class ReviewInput(BaseModel):
     passage_index:int|None=None
 
 @app.get('/health')
-def health():return {'status':'ok','version':'2.0'}
+def health():return {'status':'ok','version':'2.1'}
 @app.get('/api/captures')
 def captures(client:str='',city:str='',query:str='',device:str='',store=Depends(auth)):
     rows=store.captures({'client':client,'city':city,'query':query,'device':device})
@@ -105,12 +116,30 @@ def captures(client:str='',city:str='',query:str='',device:str='',store=Depends(
         trace=row['payload']['trace'];root=trace.get('root') or {}
         trace['root']={k:v for k,v in root.items() if k not in ('outerHTML','allText')}
         trace.pop('interactive',None);trace.pop('attributedNodes',None)
+        trace.pop('observation',None)
+        row['payload']['analysis'].pop('observation',None)
         for state in trace.get('interactionStates',[]):
             state.pop('panels',None)
     return rows
+@app.get('/api/captures/{id}/observations')
+def observations(id:str,store=Depends(auth)):
+    from observation_analysis import analyze_observations
+    rec=store.get(id)
+    if not rec or rec['kind']!='capture':raise HTTPException(404,'Capture not found')
+    trace=rec['payload']['trace'];obs=trace.get('observation') or {}
+    analysis=analyze_observations(trace)
+    return {'analysis':analysis,'environment':obs.get('environment',{}),'requests':obs.get('requests',[]),
+            'cache_disabled':obs.get('cache_disabled'),'actions':obs.get('actions',[]),
+            'truncated':obs.get('truncated',False),'errors':obs.get('errors',[]),'policy':obs.get('policy')}
 @app.get('/api/metrics')
 def metrics(client:str='',city:str='',query:str='',device:str='',target_name:str='',target_domain:str='',store=Depends(auth)):
     return store.metrics({'client':client,'city':city,'query':query,'device':device},target_name or None,target_domain or None)
+@app.get('/api/observation-series')
+def observation_series(client:str='',city:str='',query:str='',device:str='',store=Depends(auth)):
+    from observation_series import summarize_series
+    filters={'client':client,'city':city,'query':query,'device':device}
+    rows=[r for r in store.records('capture',200) if all(not v or r['payload'].get(k)==v for k,v in filters.items())]
+    return {**summarize_series(rows),'window':'Latest 200 stored captures before filtering'}
 @app.post('/api/captures')
 def capture(p:CaptureInput,store=Depends(auth)):return {'job_id':store.enqueue('capture',p.model_dump())}
 @app.get('/api/schedules')
@@ -134,6 +163,10 @@ def sample(store=Depends(auth)):
     if existing:return existing[0]
     trace=json.loads((ROOT/'samples/emergency_plumber_lakeland_trace.json').read_text())
     return persist_capture(store,trace,'Sample • historical capture','Lakeland FL','desktop',True)
+@app.post('/api/observation-sample')
+def observation_sample(store=Depends(auth)):
+    trace=json.loads((ROOT/'samples/synthetic_observation_trace.json').read_text())
+    return persist_capture(store,trace,'Synthetic • stream demonstration','Fixture market','desktop',True)
 @app.get('/api/jobs')
 def jobs(store=Depends(auth)):return store.jobs()
 @app.post('/api/jobs/{id}/retry')

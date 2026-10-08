@@ -240,15 +240,18 @@ def decode_outer_html(outer_html: str) -> PayloadDecodeResult:
             ent.payload_indices.append(p.index)
         elif p.kind == "SOURCE_CHIP":
             row = p.data[0]
-            url = row[7] if len(row) > 7 and isinstance(row[7], str) else None
+            # Recognized nested rich-card variant from captured SOURCE_CHIP payloads.
+            rich = row[1] if len(row)>1 and isinstance(row[1],list) else None
+            nested = bool(rich and len(rich)>5 and isinstance(rich[0],str) and isinstance(rich[5],str) and rich[5].startswith(('https://','http://')))
+            url = rich[5] if nested else row[7] if len(row)>7 and isinstance(row[7],str) else None
             chips.append(SourceChip(
                 uuid=row[0],
-                label=row[5] if len(row) > 5 and isinstance(row[5], str) else None,
+                label=(rich[4][0] if isinstance(rich[4],list) and rich[4] else rich[0]) if nested else row[5] if len(row)>5 and isinstance(row[5],str) else None,
                 url=url,
-                favicon_url=row[4] if len(row) > 4 and isinstance(row[4], str) else None,
+                favicon_url=rich[2] if nested else row[4] if len(row)>4 and isinstance(row[4],str) else None,
                 domain=_domain(url),
                 payload_index=p.index,
-                title=_chip_title(row),
+                title=rich[0] if nested else _chip_title(row),
                 feature_type=classify_chip_feature_type(url, p.raw),
                 secondary_sources=[x for x in flat if isinstance(x, str) and x.startswith("http")
                                    and x != url and "favicon" not in x.lower()],

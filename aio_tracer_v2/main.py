@@ -36,7 +36,7 @@ from patent_references import bibliography, cite
 from profile_manager import DEFAULT_PROFILES_DIR, BrowserProfile, ProfileManager, redact_proxy
 from signal_extractor import ExtractionResult, SignalExtractor, write_csv
 
-TOOL_VERSION = "2.0.0"
+TOOL_VERSION = "2.1.0"
 BASE_DIR = Path(__file__).resolve().parent
 logger = logging.getLogger("aio_tracer.cli")
 
@@ -90,7 +90,10 @@ def parse_args(argv: Optional[list[str]] = None) -> argparse.Namespace:
     p.add_argument("--device", choices=["desktop", "mobile"], default="desktop")
     p.add_argument("--latitude", type=float)
     p.add_argument("--longitude", type=float)
-    p.add_argument("--browser", choices=["playwright", "cloak"], default="playwright")
+    p.add_argument("--browser", choices=["playwright", "cloak", "cloak_manager"], default="playwright")
+    p.add_argument("--no-network", action="store_true", help="Disable passive CDP observation")
+    p.add_argument("--disable-cache", action="store_true", help="Disable browser HTTP cache for a diagnostic cohort")
+    p.add_argument("--query-archetype", choices=['informational','comparative','local_entity','ymyl','shopping'],default='local_entity')
     p.add_argument("--database", help="Save history to SQLite path or Postgres URL (otherwise reports only)")
     p.add_argument("--retrieve-sources", action="store_true", help="Retrieve up to 10 observed citation pages and save passage candidates")
     p.add_argument("--client-url", help="Audit and compare this business page against retrieved citation pages")
@@ -294,9 +297,10 @@ def run_once(args, pm: ProfileManager, capture_no: int, run_id: str) -> tuple[in
     else:
         profile = pm.get_or_create(args.client_id+'::'+args.device, args.city, args.proxy, geoip=not args.no_geoip,
                                    locale=args.locale, timezone_name=args.timezone)
-        cfg = TracerConfig(headless=not args.headed, expand_aio=not args.no_expand, hl=args.hl, gl=args.gl or None,
+        cfg = TracerConfig(headless=False if args.browser=="cloak_manager" else not args.headed, expand_aio=not args.no_expand, hl=args.hl, gl=args.gl or None,
                            screenshot_dir=(args.reports_dir / "screenshots") if args.screenshots else None,
-                           device=args.device, latitude=args.latitude, longitude=args.longitude, browser=args.browser)
+                           device=args.device, latitude=args.latitude, longitude=args.longitude, browser=args.browser,
+                           observe_network=not args.no_network,disable_cache=args.disable_cache,query_archetype=args.query_archetype)
         logger.info("Capture %d/%d with profile %s (seed %s, proxy %s)", capture_no, args.captures,
                     profile.profile_id, profile.fingerprint_seed, redact_proxy(profile.proxy_url))
         trace = AIOTracer(cfg).trace(profile, args.query)

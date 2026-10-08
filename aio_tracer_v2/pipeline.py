@@ -5,13 +5,15 @@ from measurement import quality,canonical_url,identity
 from signal_extractor import SignalExtractor
 from attribution_engine import AttributionEngine
 from source_audit import evidence_chains
+from observation_analysis import analyze_observations
 
 def analyze_trace(trace):
     extraction=SignalExtractor().extract(trace)
     return {'quality':quality(trace),'businesses':[{**s.to_dict(),'identity':identity(s)} for s in extraction.signals],
             'citations':extraction.source_chips,'four_layers':extraction.four_layer_summary,
             'source_hypotheses':[a.to_dict() for a in AttributionEngine().attribute_all(extraction.signals)],
-            'warnings':extraction.warnings,'chains':evidence_chains(trace,{})}
+            'warnings':extraction.warnings,'chains':evidence_chains(trace,{}),
+            'observation':analyze_observations(trace)}
 
 def persist_capture(store,trace,client,city,device='desktop',sample=False):
     analysis=analyze_trace(trace)
@@ -21,7 +23,10 @@ def persist_capture(store,trace,client,city,device='desktop',sample=False):
     prior=store.captures({k:payload[k] for k in ('client','city','device','query')})
     rec=store.put('capture',payload)
     # Never generate lost-citation alerts from failed/partial capture inventories.
-    comparable=[r for r in prior if r['payload']['analysis']['quality']['valid'] and r['payload']['analysis']['quality']['aio']]
+    def cohort(t):
+        c=t.get('capture',{});m=c.get('manager') or {};proxy=m.get('proxy_preflight') or {}
+        return (c.get('profileId'),c.get('browser'),c.get('headed'),c.get('target_area'),m.get('manager_profile_id'),proxy.get('egress_ip_hmac'),proxy.get('city'))
+    comparable=[r for r in prior if r['payload']['analysis']['quality']['valid'] and r['payload']['analysis']['quality']['aio'] and cohort(r['payload']['trace'])==cohort(trace)]
     if analysis['quality']['valid'] and analysis['quality']['aio'] and comparable:
         old=comparable[0];old_a=old['payload']['analysis']
         ids=lambda a:{x['identity'] for x in a['businesses']}

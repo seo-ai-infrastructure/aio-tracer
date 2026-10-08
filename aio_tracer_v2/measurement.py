@@ -16,6 +16,7 @@ def canonical_url(url):
 
 def quality(trace):
     cap=trace.get('capture') or {}; status=cap.get('status')
+    if cap.get('dataset')=='synthetic_browser_fixture':return {'valid':False,'aio':None,'reason':'synthetic_fixture','complete':False}
     if status in FAILURES:return {'valid':False,'aio':None,'reason':status,'complete':False}
     verified=(cap.get('aioDetection') or {}).get('verified')
     if status=='no_aio':return {'valid':True,'aio':False,'reason':'confirmed_absence','complete':True}

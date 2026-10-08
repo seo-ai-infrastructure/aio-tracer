@@ -65,12 +65,19 @@ class TracerConfig:
     include_interactive_outer_html: bool = True
     humanize: bool = False
     browser: str = "playwright"
+    manager_keep_open: bool = True
+    proxy_city_policy: str = "record"
+    expected_proxy_city: Optional[str] = None
     device: str = "desktop"
     latitude: Optional[float] = None
     longitude: Optional[float] = None
     max_interactions: int = 20
     screenshot_dir: Optional[Path] = None
     extra_launch_kwargs: dict = field(default_factory=dict)
+    observe_network: bool = True
+    disable_cache: bool = False
+    query_archetype: str = 'local_entity'
+    surface: str = 'ai_overview'
 
 
 def retry_with_backoff(
@@ -140,6 +147,34 @@ class AIOTracer:
 
     # ------------------------------------------------------------------ launch
     def _launch(self, profile: BrowserProfile):
+        if self.config.browser == 'cloak_manager':
+            if self.config.headless:
+                raise TracerError('Manager captures require a visible headed browser')
+            if self.config.extra_launch_kwargs:
+                raise TracerError('Manager launch options are configured on its dedicated profile')
+            from cloak_manager import CloakManager
+            from playwright.sync_api import sync_playwright
+            self._manager = CloakManager()
+            status = self._manager.provision(profile)
+            self._manager.metadata['proxy_preflight'] = self._manager.test_proxy(
+                profile.proxy_url, self.config.expected_proxy_city or profile.city,
+                self.config.proxy_city_policy == 'require_match')
+            endpoint = self._manager.launch(status)
+            self._playwright = sync_playwright().start()
+            self._manager_browser = self._playwright.chromium.connect_over_cdp(
+                endpoint, headers=self._manager.headers, timeout=self.config.nav_timeout_ms)
+            if not self._manager_browser.contexts:
+                raise TracerError('Manager browser has no persistent context')
+            context = self._manager_browser.contexts[0]
+            if self.config.latitude is not None and self.config.longitude is not None:
+                context.set_geolocation({'latitude':self.config.latitude,'longitude':self.config.longitude})
+                context.grant_permissions(['geolocation'], origin='https://www.google.com')
+            else:
+                context.set_geolocation(None)
+                context.clear_permissions()
+            return context
+        if self.config.browser not in ('cloak','playwright'):
+            raise TracerError('Unknown browser engine; no fallback was attempted')
         geolocation = None
         if self.config.latitude is not None and self.config.longitude is not None:
             geolocation = {"latitude": self.config.latitude, "longitude": self.config.longitude}
@@ -276,6 +311,8 @@ class AIOTracer:
             seen.add(control['path'])
             claim_ids = [c['id'] for c in trace.get('claims', []) if any(x['path'] == control['path'] for x in c['citation_controls'])]
             item = {"action": "click", "control": control, "claim_ids": claim_ids, "before_screenshot": self._screenshot(page, profile, f"before-{len(states)}"), "status":"error"}
+            if getattr(self, '_observer', None):
+                self._observer.mark('interaction', control)
             before = page.evaluate("() => [...document.querySelectorAll(AIOTrace.selectors.drawers)].filter(e=>e.getBoundingClientRect().width).map(e=>({path:AIOTrace.cssPath(e),html:e.outerHTML}))")
             try:
                 page.locator(control['path']).click(timeout=3000)
@@ -344,14 +381,41 @@ class AIOTracer:
             "profileId": profile.profile_id, "fingerprintSeed": profile.fingerprint_seed,
             "proxy": redact_proxy(profile.proxy_url), "geoip": profile.geoip,
             "city": profile.city, "device": self.config.device, "navigationAttempts": 0, "aioDetection": None, "expanded": False,
-            "errors": [], "screenshot": None,
+            "errors": [], "screenshot": None, "browser": self.config.browser, "headed": not self.config.headless,
         }
         context = None
+        self._observer = None
+        self._manager = None
+        self._manager_browser = None
         trace: Optional[dict] = None
         try:
             context = self._launch(profile)
             page = context.pages[0] if context.pages else context.new_page()
             page.set_default_timeout(self.config.nav_timeout_ms)
+            capture.update(browser=self.config.browser, headed=not self.config.headless,
+                           device_measurement='desktop_browser' if self.config.device=='desktop' else 'browser_mobile_emulation_not_real_phone')
+            if self._manager:
+                capture['manager'] = self._manager.metadata
+                if self.config.device == 'mobile':
+                    session=context.new_cdp_session(page)
+                    session.send('Emulation.setDeviceMetricsOverride',{'width':390,'height':844,'deviceScaleFactor':1,'mobile':True})
+                    session.send('Emulation.setTouchEmulationEnabled',{'enabled':True})
+                    session.send('Emulation.setUserAgentOverride',{'userAgent':'Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36','userAgentMetadata':{'brands':[{'brand':'Chromium','version':'131'}],'fullVersion':'131.0.0.0','platform':'Android','platformVersion':'13.0.0','architecture':'','model':'Pixel 7','mobile':True}})
+                    session.detach()
+                else:
+                    # Clear emulation from previous attached runs; persistent profiles are device-specific.
+                    session=context.new_cdp_session(page)
+                    session.send('Emulation.clearDeviceMetricsOverride')
+                    session.send('Emulation.setTouchEmulationEnabled',{'enabled':False})
+                    session.detach()
+
+            if self.config.observe_network:
+                from network_observer import NetworkObserver
+                import os
+                key = os.getenv('AIO_OBSERVATION_HMAC_KEY')
+                self._observer = NetworkObserver(page, query, self.config.disable_cache,
+                                                 key.encode() if key else None).attach()
+                self._observer.mark('initial', 'query_submission')
 
             capture["navigationAttempts"] = self._navigate(page, url)
             injected = self._inject(page)
@@ -361,6 +425,7 @@ class AIOTracer:
                 raise BlockedError("Google challenge detected after render")
             before_screenshot = self._screenshot(page, profile, "collapsed")
             if self.config.expand_aio and detection.get("verified"):
+                if self._observer:self._observer.mark('expansion', 'show_more_attempt')
                 capture["expanded"] = self._expand_aio(page)
                 if capture["expanded"] and injected:
                     detection = self._wait_for_aio(page, injected)
@@ -410,14 +475,29 @@ class AIOTracer:
             capture["errors"].append(f"{type(exc).__name__}: {exc}")
         finally:
             if context is not None:
+                if self._observer:
+                    try:
+                        observation = self._observer.finish()
+                        observation['environment'].update(query_archetype=self.config.query_archetype,
+                                                          surface=self.config.surface, device_cohort=self.config.device,
+                                                          browser_engine=self.config.browser, headed=not self.config.headless,
+                                                          manager_profile_id=(capture.get("manager") or {}).get("manager_profile_id"))
+                        if trace is None:trace=empty_trace(query, page.url, self.config.label)
+                        trace['observation']=observation
+                    except Exception as exc:
+                        capture['errors'].append('observation_finalize:'+type(exc).__name__)
                 try:
-                    context.close()
+                    if not self._manager:context.close()
                 except Exception as exc:  # noqa: BLE001
                     logger.debug("Context close failed: %s", exc)
 
         if getattr(self, "_playwright", None) is not None:
             self._playwright.stop()
             self._playwright = None
+        if self._manager:
+            capture['manager']=self._manager.metadata
+            try:self._manager.close(stop=not self.config.manager_keep_open)
+            except Exception:capture['errors'].append('manager_cleanup_failed')
         if trace is None:
             trace = empty_trace(query, url, self.config.label)
         if not trace.get("query"):

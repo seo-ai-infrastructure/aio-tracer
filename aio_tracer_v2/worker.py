@@ -16,13 +16,24 @@ def perform(store,job):
         proxy_key=p.get('proxy_profile') or ''
         proxy=os.getenv('AIO_PROXY_'+proxy_key.upper()) if proxy_key else None
         if proxy_key and not proxy:raise ValueError('Named proxy profile is not configured on the worker')
-        profile=ProfileManager(DATA/'profiles').get_or_create(p['client']+'::'+p.get('device','desktop'),p['city'],proxy,locale='en-US',timezone_name=p.get('timezone') or 'America/New_York')
-        # A profile is reused, so a worker-wide file lock prevents simultaneous browser launches.
+        profiles=ProfileManager(DATA/'profiles')
+        identity_client=p['client']+'::'+p.get('device','desktop')
+        identity_area=p['city']+(' :: '+p['target_area'].strip() if p.get('target_area') else '')
+        profile_id=profiles.make_profile_id(identity_client,identity_area)
+        # One capture worker per shared volume; these file locks are not distributed.
         from filelock import FileLock
         lock_dir=DATA/'locks';lock_dir.mkdir(parents=True,exist_ok=True)
-        with FileLock(str(lock_dir/(profile.profile_id+'.lock')),timeout=300):
-            trace=AIOTracer(TracerConfig(browser=p.get('browser','playwright'),device=p.get('device','desktop'),
-                    latitude=p.get('latitude'),longitude=p.get('longitude'),screenshot_dir=DATA/'screenshots')).trace(profile,p['query'])
+        with FileLock(str(lock_dir/(profile_id+'.lock')),timeout=300):
+            profile=profiles.get_or_create(identity_client,identity_area)
+            profiles.configure_connection(profile,proxy_url=proxy,timezone_name=p.get('timezone'))
+            trace=AIOTracer(TracerConfig(browser=p.get('browser','cloak_manager'),headless=not p.get('headed',True),
+                    manager_keep_open=p.get('manager_keep_open',True),proxy_city_policy=p.get('proxy_city_policy','record'),expected_proxy_city=p['city'],device=p.get('device','desktop'),
+                    latitude=p.get('latitude'),longitude=p.get('longitude'),screenshot_dir=DATA/'screenshots',
+                    observe_network=p.get('observe_network',True),disable_cache=p.get('disable_cache',False),
+                    query_archetype=p.get('query_archetype','local_entity'))).trace(profile,p['query'])
+        trace['capture']['target_area']=p.get('target_area')
+        trace['capture']['city']=p['city']
+        if trace.get('location'):trace['location'].update(requested_city=p['city'],requested_area=p.get('target_area'))
         rec=persist_capture(store,trace,p['client'],p['city'],p.get('device','desktop'))
         status=(trace.get('capture') or {}).get('status')
         if status not in ('ok','no_aio'):raise RuntimeError(f"Capture {status}; inspect capture {rec['id']}")
@@ -34,10 +45,17 @@ def perform(store,job):
         urls=list(dict.fromkeys(canonical_url(c.get('url')) for c in payload['analysis']['citations'] if canonical_url(c.get('url'))))[:p.get('max_sources',10)]
         for url in urls:
             store.renew(job['id'])
-            try:page=audit_page(url)
+            try:
+                page=audit_page(url)
+                from support_verification import attach_drift
+                # Existing per-capture snapshot provides a defensible comparison on refresh.
+                page=attach_drift(page,existing.get(url))
             except Exception as exc:page={'requested_url':url,'error':str(exc)[:500]}
             page['capture_id']=rec['id'];store.put('page',page);existing[url]=page
-        payload['analysis']['chains']=evidence_chains(trace,existing);store.put('capture',payload,rec['id'])
+        payload['analysis']['chains']=evidence_chains(trace,existing)
+        from support_verification import verification_records
+        payload['analysis']['citation_verifications']=verification_records(trace,existing)
+        store.put('capture',payload,rec['id'])
         return {'capture_id':rec['id'],'sources_attempted':len(urls),'sources_retrieved':sum(not existing[u].get('error') for u in urls)}
     if kind=='comparison':
         rec=store.get(p['capture_id'])
